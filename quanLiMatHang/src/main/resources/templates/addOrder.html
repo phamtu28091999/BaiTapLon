@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="vn" xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="ISO-8859-1">
+<title>Thêm đơn hàng mới</title>
+<link rel="stylesheet" th:href="@{/css/bootstrap.min.css}" />
+<style>
+.add {
+	color: red;
+	height: 10px;
+}
+
+#form {
+	width: 600px;
+	margin: auto;
+	background: #eee;
+	margin-top: 20px;
+}
+</style>
+</head>
+<body>
+
+	<div class="container col-6" id="form">
+		<h2 style="text-align: center;">Thêm đơn hàng mới</h2>
+		<div class="col-md-auto">
+			<form th:object="${order}"
+				th:action="@{/order/saveOrder?(bid=${bid},sid=${sid})}"
+				th:method="POST">
+				<label th:for="id">Mã nhà cung cấp</label> <input type="text"
+					readonly="true" th:value="${sid}" class="form-control" />
+				<div style="clear: both; display: block; height: 10px"></div>
+
+				<label th:for="id">Mã sách</label> <input type="text"
+					readonly="true" th:value="${bid}" class="form-control" />
+				<div style="clear: both; display: block; height: 10px"></div>
+
+				<div>
+					<label th:for="date">Ngày nhập</label> <input type="date"
+						th:field="*{date}" class="form-control" placeholder="Ngày nhập" />
+					<div class="add">
+						<font size="-1.5" th:if="${#fields.hasErrors('date')}"
+							th:errors="*{date}"></font>
+					</div>
+				</div>
+				<div style="clear: both; display: block; height: 10px"></div>
+
+				<div>
+					<label th:for="price">Giá nhập</label> <input type="number"
+						th:field="*{price}" class="form-control" placeholder="Giá nhập" />
+					<div class="add">
+						<font size="-1.5" th:if="${#fields.hasErrors('price')}"
+							th:errors="*{price}"></font>
+					</div>
+				</div>
+				<div style="clear: both; display: block; height: 10px"></div>
+
+				<div>
+					<label>Số lượng</label> <input type="number" th:field="*{number}"
+						class="form-control" placeholder="Gia ban" />
+					<div class="number">
+						<font size="-1.5" th:if="${#fields.hasErrors('number')}"
+							th:errors="*{number}"></font>
+					</div>
+				</div>
+				<div style="clear: both; display: block; height: 10px"></div>
+
+				<div  style="margin-top: 10px;margin-bottom:30px; margin-left: 450px">
+					<input type="submit" class="btn btn-success" value="Lưu"> <a
+						th:href="@{/order/}" class="btn btn-primary">Thoát</a>
+				</div>
+			</form>
+		</div>
+	</div>
+
+</body>
+</html>

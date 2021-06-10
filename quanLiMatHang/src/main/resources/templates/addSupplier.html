@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="vn" xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="ISO-8859-1">
+<title>Thêm nhà cung cấp mới</title>
+<link rel="stylesheet" th:href="@{/css/bootstrap.min.css}" />
+<style>
+.add {
+	color: red;
+	height: 10px;
+}
+
+#form {
+	width: 600px;
+	margin: auto;
+	background: #eee;
+	margin-top: 20px;
+}
+</style>
+</head>
+<body>
+
+	<div class="container col-6" id="form">
+		<h2 style="text-align: center;">Thêm nhà cung cấp mới</h2>
+		<div class="col-md-auto">
+			<form th:object="${supplier}" th:action="@{/supplier/save}"
+				th:method="POST">
+				<div>
+					<label th:for="name">Tên nhà cung cấp</label> <input type="text"
+						th:field="*{name}" class="form-control"
+						placeholder="Tên nhà cung cấp" />
+					<div class="add">
+						<font size="-1.5" th:if="${#fields.hasErrors('name')}"
+							th:errors="*{name}"></font>
+					</div>
+				</div>
+				<div style="clear: both; display: block; height: 10px"></div>
+
+				<div>
+					<label th:for="address">Địa chỉ</label> <input type="text"
+						th:field="*{address}" class="form-control" placeholder="Địa chỉ" />
+					<div class="add">
+						<font size="-1.5" th:if="${#fields.hasErrors('address')}"
+							th:errors="*{address}"></font>
+					</div>
+				</div>
+				<div style="clear: both; display: block; height: 10px"></div>
+
+				<div>
+					<label>Số điện thoại</label> <input type="text" th:field="*{phone}"
+						class="form-control" placeholder="Số điện thoại" />
+					<div class="add">
+						<font size="-1.5" th:if="${#fields.hasErrors('phone')}"
+							th:errors="*{phone}"></font>
+					</div>
+				</div>
+				<div style="clear: both; display: block; height: 10px"></div>
+
+				<div  style="margin-top: 10px;margin-bottom:30px; margin-left: 450px">
+					<input type="submit" class="btn btn-success" value="Lưu"> <a
+						th:href="@{/supplier/}" class="btn btn-primary">Thoát</a>
+				</div>
+			</form>
+		</div>
+	</div>
+</body>
+</html>

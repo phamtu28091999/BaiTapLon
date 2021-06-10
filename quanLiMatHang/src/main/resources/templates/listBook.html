@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="vn" xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="ISO-8859-1">
+<title>Danh sách mặt hàng</title>
+<link rel="stylesheet" th:href="@{/css/bootstrap.min.css}" />
+<link rel="stylesheet" th:href="@{/css/table.css}" />
+
+</head>
+<body>
+
+	<div class="container" style="margin-top: 30px">
+		<nav class="navbar navbar-inverse">
+			<div class="container-fluid">
+
+				<div th:include="header.html"></div>
+
+				<form th:action="@{/book/search}" class="navbar-form navbar-right">
+					<div class="form-group">
+						<input type="text" class="form-control" name="keyword"
+							id="keyword" size="50" th:value="${keyword}">
+					</div>
+					<input type="submit" value="Tìm kiếm" class="btn btn-default">
+				</form>
+			</div>
+		</nav>
+
+		<div>
+			<h2 style="text-align: center;">Quản lí sách</h2>
+			<div th:if="${success}"
+				class="row alert alert-success alert-dismissible">
+				<span th:text="${success}"></span>
+			</div>
+			<a href="/book/add" class="btn btn-success" id="add">Thêm mới</a>
+
+			<table id="table">
+
+				<tr style="text-align: center;">
+					<td>Mã sách</td>
+					<td>Hình ảnh</td>
+					<td>Tên sách</td>
+					<td>Gía bán(Đồng)</td>
+					<td>Tồn kho</td>
+					<td>Hành động</td>
+				</tr>
+
+				<tr th:each="b:${listBook}"
+					style="text-align: center; vertical-align: baseline;">
+					<td th:text="${b.id}"></td>
+					<td data-label="Hình ảnh"><img
+						style="width: 60px; height: 60px;" th:src="'/img/' + ${b.img}"
+						alt=""></td>
+					<td th:text="${b.name}"
+						style="text-align: left; vertical-align: auto;"></td>
+					<td th:text="${b.price}" style="text-align: right;"></td>
+					<td th:text="${b.number}" style="text-align: right;"></td>
+					<td><a th:if="${action1}"
+						th:href="@{/book/edit?id={id}(id=${b.id})}"
+						class="btn btn-primary">Sửa</a> <a th:if="${action1}"
+						th:href="@{/book/delete?id={id}(id=${b.id})}"
+						onclick="return confirm('Bạn muốn xóa?')" class="btn btn-danger">Xóa</a>
+						<a th:if="${action2}"
+						th:href="@{/order/loadOrder?(bid=${b.id},sid=${sid})}"
+						class="btn btn-info">Chọn</a></td>
+				</tr>
+
+			</table>
+		</div>
+	</div>
+
+	<script th:src="@{/js/jquery-3.2.1.min.js}"></script>
+	<script th:src="@{/js/bootstrap.min.js}"></script>
+</body>
+</html>

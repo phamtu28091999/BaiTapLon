@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="vn" xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="ISO-8859-1">
+<title>Them moi mat hang</title>
+<link rel="stylesheet" th:href="@{/css/bootstrap.min.css}" />
+<style>
+.add {
+	color: red;
+	height: 10px;
+}
+
+#form {
+	width: 600px;
+	margin: auto;
+	background: #eee;
+	margin-top: 20px;
+}
+</style>
+</head>
+<body>
+
+	<div class="container col-6" id="form">
+		<h2 style="text-align: center;">Thêm mặt hàng mới</h2>
+		<div class="col-md-auto">
+			<form th:object="${book}" th:action="@{/book/save}" th:method="post">
+				<div>
+					<label th:for="name">Hinh anh</label>
+					<div style="text-align: center; margin-bottom: 10px;">
+						<img style="width: 120px; height: 120px;" th:src="'/img/'+${book.img}" id="upload-img">
+					</div>
+					<input type="file" th:field="*{img}" class="form-control"
+						id="fileupload" placeholder="Hinh anh" /> 
+					<div class="add">
+						<font size="-1.5" th:if="${#fields.hasErrors('img')}"
+							th:errors="*{img}"></font>
+					</div>
+				</div>
+				<div style="clear: both; display: block; height: 10px"></div>
+
+				<div>
+					<label th:for="name">Tên sách</label> <input type="text"
+						th:field="*{name}" class="form-control" placeholder="Tên sách" />
+					<div class="add">
+						<font size="-1.5" th:if="${#fields.hasErrors('name')}"
+							th:errors="*{name}"></font>
+					</div>
+				</div>
+				<div style="clear: both; display: block; height: 10px"></div>
+
+				<div>
+					<label>Giá bán(Đồng)</label> <input type="number"
+						th:field="*{price}" class="form-control" placeholder="Gia ban" />
+					<div class="add">
+						<font size="-1.5" th:if="${#fields.hasErrors('price')}"
+							th:errors="*{price}"></font>
+					</div>
+				</div>
+				<div style="clear: both; display: block; height: 10px"></div>
+
+				<div>
+					<label>Tồn kho</label> <input type="number" th:field="*{number}"
+						class="form-control" placeholder="Tồn kho" />
+					<div class="add">
+						<font size="-1.5" th:if="${#fields.hasErrors('number')}"
+							th:errors="*{number}"></font>
+					</div>
+				</div>
+				<div style="clear: both; display: block; height: 10px"></div>
+
+				<div
+					style="margin-top: 10px; margin-bottom: 30px; margin-left: 450px">
+					<input type="submit" class="btn btn-success" value="Lưu"> <a
+						th:href="@{/book/}" class="btn btn-primary">Thoát</a>
+				</div>
+			</form>
+		</div>
+	</div>
+
+	<script th:src="@{/js/jquery-3.2.1.min.js}"></script>
+	<script>
+		$(function() {
+			$("#fileupload").change(function(event) {
+				  var x = URL.createObjectURL(event.target.files[0]);
+                  $("#upload-img").attr("src",x);
+                  console.log(event);v
+			});
+		})
+	</script>
+
+</body>
+</html>
